@@ -5,7 +5,7 @@ from pathlib import Path
 
 from starlette.responses import StreamingResponse
 
-from WB_Hack_Product.ml_predictor.config import REQUIRED_COLUMNS
+from ml_predictor.config import REQUIRED_COLUMNS
 from ml_predictor import Predictor
 import pandas as pd
 app = FastAPI()
@@ -16,9 +16,7 @@ MAX_FILE_SIZE = 100*1024*1024
 
 
 
-@app.get("/")
-def read_root():
-    return {"Hello":"World"}
+
 @app.post("/predict")
 async def get_predict(file:UploadFile = File(...)):
     ext = Path(file.filename).suffix.lower()

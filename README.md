@@ -34,24 +34,24 @@ uvicorn main:app --reload
     -o predicted_data.csv 
     ```
     Возвращает: CSV файл с предсказаниями.
-   2. ### GET /health
+2. ### GET /health
 
-       Проверка статуса модели.
+    Проверка статуса модели.
 
-       Пример запроса:
-       ```bash
-       curl http://127.0.0.1:8000/health
-      ```
+    Пример запроса:
+    ```bash
+    curl http://127.0.0.1:8000/health
+   ```
 
-       Пример ответа:
-      ```json
-       {
-        "status": "ok",
-        "model_flag": {
-          "validation_metrics": { ... }
-        }
-      }
-      ```
+    Пример ответа:
+   ```json
+    {
+     "status": "ok",
+     "model_flag": {
+       "validation_metrics": { ... }
+     }
+   }
+   ```
 ## Настройки
    * Разрешённые расширения: .parquet
    * Максимальный размер файла: 100 MB

@@ -29,15 +29,15 @@ async def get_predict(file:UploadFile = File(...)):
         df = pd.read_parquet(BytesIO(contents))
     except Exception as e:
         raise HTTPException(status_code=400,detail=f"Ошибка чтения файла: {str(e)}")
-    missing_columns = [col for col in REQUIRED_COLUMNS if col not in df.columns]
-    if missing_columns:
-        raise HTTPException(status_code=400,detail=f"Неверная структура файла. Отсутствуют обязательные колонки: {missing_columns}")
+    # missing_columns = [col for col in REQUIRED_COLUMNS if col not in df.columns]
+    # if missing_columns:
+    #     raise HTTPException(status_code=400,detail=f"Неверная структура файла. Отсутствуют обязательные колонки: {missing_columns}")
     try:
         df_result = predictor.predict(df)
     except Exception as e:
         raise HTTPException(status_code=400,detail=f"Ошибка предсказания: {str(e)}")
     buffer = StringIO()
-    df.to_csv(buffer, index=False)
+    df_result.to_csv(buffer, index=False)
     buffer.seek(0)
     return StreamingResponse(
         iter([buffer.getvalue().encode()]),
